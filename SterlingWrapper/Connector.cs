@@ -94,6 +94,7 @@ namespace SterlingWrapper
             if (error == -49) return "Quote Unavailable or Compliance threshold exceeded or quote unavailable";
             if (error == -50) return "Neither last nor Close price available for MKT order";
             if (error == -51) return "Quote Unavailable or Does not meet min average daily volume";
+            if (error == -56) return "Limit price is not set to 0 for S-STP order";
 
             return "Unknown: " + error.ToString();
         }
@@ -171,6 +172,7 @@ namespace SterlingWrapper
             stiOrder.PriceType = SterlingLib.STIPriceTypes.ptSTISvrStp;
             stiOrder.StpPrice = ord_price;
             stiOrder.Display = ord_disp;
+            stiOrder.LmtPrice = 0;
 
 
             stiOrder.ClOrderID = stiOrder.Symbol + stiOrder.Side + "STP" + DateTime.Now.DayOfYear + DateTime.Now.Hour + DateTime.Now.Minute;
