@@ -179,12 +179,21 @@ namespace SterlingWrapper
             int ord = stiOrder.SubmitOrder();
             string ord_id = stiOrder.ClOrderID;
 
+            string status = "0";
+
             if (ord != 0)
             {
+                status = DecodeError(ord);
                 Console.WriteLine("Sterling API ~ Stop Order:" + ord_id + " Error: " + DecodeError(ord));
             }
 
-            return ord_id;
+            string data = String.Format("{0}, {1} {2} {3} {4} status: {5} ordID: {6}", DateTime.Now.ToLongTimeString(), ticker, ord_price, ord_side, ord_route, status, ord_id);
+            WriteLog(data);
+
+            
+            string _return = ord_id + ";" + ord;
+
+            return _return;
         }
 
         public string Sendstoplimit(string account, string ticker, int ord_size, int ord_disp, string ord_route, double stp_price, double lmt_price, string ord_side, string ord_tif)
